@@ -1,6 +1,7 @@
 package com.vishal.spring_database;
 
 import com.vishal.spring_database.domain.dto.AuthorDto;
+import com.vishal.spring_database.domain.dto.BookDto;
 import com.vishal.spring_database.domain.entities.AuthorEntity;
 import com.vishal.spring_database.domain.entities.BookEntity;
 
@@ -45,6 +46,14 @@ public final class TestDataUtil {
                 .isbn("978-1-2345-6789-0")
                 .title("The Shadow in the Attic")
                 .authorEntity(authorEntity)
+                .build();
+    }
+
+    public static BookDto createTestBookDtoA(final AuthorDto authorDto) {
+        return BookDto.builder()
+                .isbn("978-1-2345-6789-0")
+                .title("The Shadow in the Attic")
+                .author(authorDto)
                 .build();
     }
 

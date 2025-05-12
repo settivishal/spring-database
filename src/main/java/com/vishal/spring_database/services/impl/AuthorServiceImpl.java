@@ -2,11 +2,10 @@ package com.vishal.spring_database.services.impl;
 
 import com.vishal.spring_database.domain.entities.AuthorEntity;
 import com.vishal.spring_database.repositories.AuthorRepository;
-import com.vishal.spring_database.services.AuthorService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthorServiceImpl implements AuthorService {
+public class AuthorServiceImpl implements com.vishal.spring_database.services.AuthorService {
 
     private AuthorRepository authorRepository;
 
