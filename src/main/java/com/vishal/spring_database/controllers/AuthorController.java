@@ -4,7 +4,6 @@ import com.vishal.spring_database.domain.dto.AuthorDto;
 import com.vishal.spring_database.domain.entities.AuthorEntity;
 import com.vishal.spring_database.mappers.Mapper;
 import com.vishal.spring_database.services.AuthorService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,7 @@ public class AuthorController {
     @PostMapping("/authors")
     public ResponseEntity<AuthorDto> createAuthor(@RequestBody AuthorDto author) {
         AuthorEntity authorEntity = authorMapper.mapFrom(author);
-        AuthorEntity savedAuthorEntity = authorService.createAuthor(authorEntity);
+        AuthorEntity savedAuthorEntity = authorService.save(authorEntity);
         return new ResponseEntity<>(authorMapper.mapTo(savedAuthorEntity), HttpStatus.CREATED);
     }
 
@@ -49,6 +48,18 @@ public class AuthorController {
         }).orElse(
                 new ResponseEntity<>(null, HttpStatus.NOT_FOUND)
         );
+    }
+
+    @PutMapping(path = "/authors/{id}")
+    public ResponseEntity<AuthorDto> fullUpdateAuthor(@PathVariable("id") Long id, @RequestBody AuthorDto authorDto) {
+        if(!authorService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        authorDto.setId(id);
+        AuthorEntity authorEntity = authorMapper.mapFrom(authorDto);
+        AuthorEntity savedAuthorEntity = authorService.save(authorEntity);
+        return new ResponseEntity<>(authorMapper.mapTo(savedAuthorEntity), HttpStatus.OK);
     }
 
 }
