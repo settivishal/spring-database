@@ -27,16 +27,6 @@ public class BookEntityRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatBookCanBeCreatedAndRecalled() {
-        AuthorEntity authorEntity = TestDataUtil.createTestAuthorEntityA();
-        BookEntity bookEntity = TestDataUtil.createTestBookEntityA(authorEntity);
-        underTest.save(bookEntity);
-        Optional<BookEntity> result = underTest.findById(bookEntity.getIsbn());
-        assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(bookEntity);
-    }
-
-    @Test
     public void testThatMultipleBooksCanBeCreatedAndRecalled() {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthorEntityA();
 

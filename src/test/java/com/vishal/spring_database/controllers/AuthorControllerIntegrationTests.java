@@ -90,7 +90,7 @@ public class AuthorControllerIntegrationTests {
 
     @Test
     public void testThatListAuthorsReturnsListOfAuthors() throws Exception {
-        AuthorEntity testAuthorEntityA = TestDataUtil.createTestAuthorEntityA(); // Should not set ID
+        AuthorEntity testAuthorEntityA = TestDataUtil.createTestAuthorEntityA();
         authorService.save(testAuthorEntityA);
 
         mockMvc.perform(
@@ -99,7 +99,7 @@ public class AuthorControllerIntegrationTests {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[0].name").value("Chetan Bhagat")
+                MockMvcResultMatchers.jsonPath("$[0].name").value("Abigail Rose")
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$[0].age").value(80)
         );
