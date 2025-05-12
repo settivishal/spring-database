@@ -1,6 +1,5 @@
-package com.vishal.spring_database.domain;
+package com.vishal.spring_database.domain.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,12 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-@Table(name = "authors")
-public class Author {
+public class AuthorDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")
     private Long id;
 
     private String name;
@@ -23,4 +18,3 @@ public class Author {
     private Integer age;
 
 }
-
