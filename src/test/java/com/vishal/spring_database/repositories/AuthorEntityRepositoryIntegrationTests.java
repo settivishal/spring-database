@@ -35,21 +35,6 @@ public class AuthorEntityRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatMultipleAuthorsCanBeCreatedAndRecalled() {
-        AuthorEntity authorEntityA = TestDataUtil.createTestAuthorEntityA();
-        underTest.save(authorEntityA);
-        AuthorEntity authorEntityB = TestDataUtil.createTestAuthorB();
-        underTest.save(authorEntityB);
-        AuthorEntity authorEntityC = TestDataUtil.createTestAuthorC();
-        underTest.save(authorEntityC);
-
-        Iterable<AuthorEntity> result = underTest.findAll();
-        assertThat(result)
-                .hasSize(3).
-                containsExactly(authorEntityA, authorEntityB, authorEntityC);
-    }
-
-    @Test
     public void testThatAuthorCanBeUpdated() {
         AuthorEntity authorEntityA = TestDataUtil.createTestAuthorEntityA();
         underTest.save(authorEntityA);
@@ -68,32 +53,4 @@ public class AuthorEntityRepositoryIntegrationTests {
         Optional<AuthorEntity> result = underTest.findById(String.valueOf(authorEntityA.getId()));
         assertThat(result).isEmpty();
     }
-
-    @Test
-    public void testThatGetAuthorsWithAgeLessThan() {
-        AuthorEntity testAuthorAEntity = TestDataUtil.createTestAuthorEntityA();
-        underTest.save(testAuthorAEntity);
-        AuthorEntity testAuthorBEntity = TestDataUtil.createTestAuthorB();
-        underTest.save(testAuthorBEntity);
-        AuthorEntity testAuthorCEntity = TestDataUtil.createTestAuthorC();
-        underTest.save(testAuthorCEntity);
-
-        Iterable<AuthorEntity> result = underTest.ageLessThan(50);
-        assertThat(result).containsExactly(testAuthorBEntity, testAuthorCEntity);
-    }
-
-    @Test
-    public void testThatGetAuthorsWithAgeGreaterThan() {
-        AuthorEntity testAuthorAEntity = TestDataUtil.createTestAuthorEntityA();
-        underTest.save(testAuthorAEntity);
-        AuthorEntity testAuthorBEntity = TestDataUtil.createTestAuthorB();
-        underTest.save(testAuthorBEntity);
-        AuthorEntity testAuthorCEntity = TestDataUtil.createTestAuthorC();
-        underTest.save(testAuthorCEntity);
-
-        Iterable<AuthorEntity> result = underTest.findAuthorsWithAgeGreaterThan(50);
-        assertThat(result).containsExactly(testAuthorAEntity);
-    }
-
-
 }

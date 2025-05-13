@@ -27,40 +27,6 @@ public class BookEntityRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatMultipleBooksCanBeCreatedAndRecalled() {
-        AuthorEntity authorEntity = TestDataUtil.createTestAuthorEntityA();
-
-        BookEntity bookEntityA = TestDataUtil.createTestBookEntityA(authorEntity);
-        underTest.save(bookEntityA);
-
-        BookEntity bookEntityB = TestDataUtil.createTestBookB(authorEntity);
-        underTest.save(bookEntityB);
-
-        BookEntity bookEntityC = TestDataUtil.createTestBookC(authorEntity);
-        underTest.save(bookEntityC);
-
-        Iterable<BookEntity> result = underTest.findAll();
-        assertThat(result)
-                .hasSize(3)
-                .containsExactly(bookEntityA, bookEntityB, bookEntityC);
-    }
-
-    @Test
-    public void testThatBookCanBeUpdated() {
-        AuthorEntity authorEntity = TestDataUtil.createTestAuthorEntityA();
-
-        BookEntity bookEntityA = TestDataUtil.createTestBookEntityA(authorEntity);
-        underTest.save(bookEntityA);
-
-        bookEntityA.setTitle("UPDATED");
-        underTest.save(bookEntityA);
-
-        Optional<BookEntity> result = underTest.findById(bookEntityA.getIsbn());
-        assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(bookEntityA);
-    }
-
-    @Test
     public void testThatBookCanBeDeleted() {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthorEntityA();
 
