@@ -1,6 +1,8 @@
 package com.vishal.spring_database.controllers;
 
+import com.vishal.spring_database.domain.dto.AuthorDto;
 import com.vishal.spring_database.domain.dto.BookDto;
+import com.vishal.spring_database.domain.entities.AuthorEntity;
 import com.vishal.spring_database.domain.entities.BookEntity;
 import com.vishal.spring_database.mappers.Mapper;
 import com.vishal.spring_database.services.BookService;
@@ -55,5 +57,16 @@ public class BookController {
         }).orElse(
                 new ResponseEntity<>(HttpStatus.NOT_FOUND)
         );
+    }
+
+    @PatchMapping("/books/{isbn}")
+    public ResponseEntity<BookDto> partialUpdateBook(@PathVariable("isbn") String isbn, @RequestBody BookDto bookDto) {
+        if (!bookService.isExists(isbn)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
+        BookEntity updatedBook = bookService.partialUpdate(isbn, bookEntity);
+        return new ResponseEntity<>(bookMapper.mapTo(updatedBook), HttpStatus.OK);
     }
 }

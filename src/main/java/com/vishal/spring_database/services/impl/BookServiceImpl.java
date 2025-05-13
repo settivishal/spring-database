@@ -1,10 +1,12 @@
 package com.vishal.spring_database.services.impl;
 
+import com.vishal.spring_database.domain.entities.AuthorEntity;
 import com.vishal.spring_database.domain.entities.BookEntity;
 import com.vishal.spring_database.repositories.BookRepository;
 import com.vishal.spring_database.services.BookService;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,4 +46,13 @@ public class BookServiceImpl implements BookService {
         return bookRepository.existsById(isbn);
     }
 
+    @Override
+    public BookEntity partialUpdate(String isbn, BookEntity bookEntity) {
+        bookEntity.setIsbn(isbn);
+
+        return bookRepository.findById(isbn).map(existingBook -> {
+            Optional.ofNullable(bookEntity.getTitle()).ifPresent(existingBook::setTitle);
+            return bookRepository.save(existingBook);
+        }).orElseThrow(() -> new RuntimeException("Book does not exist"));
+    }
 }

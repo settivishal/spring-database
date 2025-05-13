@@ -70,8 +70,6 @@ public class AuthorController {
 
         AuthorEntity authorEntity = authorMapper.mapFrom(authorDto);
         AuthorEntity updatedAuthor = authorService.partialUpdate(id, authorEntity);
-        return new ResponseEntity<>(
-                authorMapper.mapTo(updatedAuthor),
-                HttpStatus.OK);
+        return new ResponseEntity<>(authorMapper.mapTo(updatedAuthor), HttpStatus.OK);
     }
 }
