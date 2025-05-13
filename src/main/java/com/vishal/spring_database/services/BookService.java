@@ -1,10 +1,10 @@
 package com.vishal.spring_database.services;
 
-import com.vishal.spring_database.domain.entities.AuthorEntity;
 import com.vishal.spring_database.domain.entities.BookEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +14,8 @@ public interface BookService {
     BookEntity createUpdateBook(String isbn, BookEntity book);
 
     List<BookEntity> findAll();
+
+    Page<BookEntity> findAll(Pageable pageable);
 
     Optional<BookEntity> findOne(String isbn);
 

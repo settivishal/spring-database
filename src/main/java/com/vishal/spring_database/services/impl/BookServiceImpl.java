@@ -1,12 +1,12 @@
 package com.vishal.spring_database.services.impl;
 
-import com.vishal.spring_database.domain.entities.AuthorEntity;
 import com.vishal.spring_database.domain.entities.BookEntity;
 import com.vishal.spring_database.repositories.BookRepository;
 import com.vishal.spring_database.services.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,6 +34,11 @@ public class BookServiceImpl implements BookService {
                                 .spliterator(),
                                 false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<BookEntity> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 
     @Override
